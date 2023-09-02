@@ -72,7 +72,7 @@ if __name__ == "__main__":
     all_items = fetch_hacker_news_items()
     extracted_data = extract_fields(all_items)
     
-    output_file = "hacker_news_items.html"
+    output_file = "show_hacker_news_items.html"
 
     write_data_to_html(extracted_data, output_file)
     print(f"Data written to {output_file}")
