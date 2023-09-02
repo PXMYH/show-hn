@@ -29,9 +29,29 @@ def fetch_hacker_news_items():
 
     return all_hits
 
+def extract_fields(items):
+    extracted_data = []
+    
+    for item in items:
+        hn_url = f"https://news.ycombinator.com/item?id={item.get('objectID', '')}"
+        
+        extracted_item = {
+            "created_at": item.get("created_at", ""),
+            "title": item.get("title", ""),
+            "url": item.get("url", ""),
+            "num_comments": item.get("num_comments", 0),
+            "objectID": item.get("objectID", ""),
+            "author": item.get("author", ""),
+            "hn_url": hn_url
+        }
+        extracted_data.append(extracted_item)
+    
+    return extracted_data
+
 if __name__ == "__main__":
     all_items = fetch_hacker_news_items()
-    print(f"Total {len(all_items)} items fetched.")
+    extracted_data = extract_fields(all_items)
     
-    # You can now work with the 'all_items' list, which contains all the items from the API.
-    # For example, you can iterate through the list and access fields like 'title', 'url', etc.
+    # Output the extracted data as a list of dictionaries
+    for item in extracted_data:
+        print(item)
