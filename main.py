@@ -61,6 +61,9 @@ def write_data_to_html(data, output_file):
 
         for item in data:
             file.write('<li>\n')
+            file.write(f'<strong>Author:</strong> {item["author"]}<br>\n')
+            file.write(f'<strong>Created Date:</strong> {item["created_at"]}<br>\n')
+            file.write(f'<strong>Comments:</strong> {item["num_comments"]}<br>\n')
             file.write(f'<a href="{item["hn_url"]}">{item["title"]}</a>\n')
             file.write('</li>\n')
 
