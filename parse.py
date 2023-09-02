@@ -1,4 +1,5 @@
 import requests
+import json
 
 def fetch_hacker_news_items():
     base_url = "https://hn.algolia.com/api/v1/search?tags=show_hn"
@@ -48,10 +49,30 @@ def extract_fields(items):
     
     return extracted_data
 
+def write_data_to_html(data, output_file):
+    with open(output_file, 'w') as file:
+        file.write('<html>\n')
+        file.write('<head>\n')
+        file.write('<title>Hacker News Items</title>\n')
+        file.write('</head>\n')
+        file.write('<body>\n')
+        file.write('<h1>Hacker News Items</h1>\n')
+        file.write('<ul>\n')
+
+        for item in data:
+            file.write('<li>\n')
+            file.write(f'<a href="{item["hn_url"]}">{item["title"]}</a>\n')
+            file.write('</li>\n')
+
+        file.write('</ul>\n')
+        file.write('</body>\n')
+        file.write('</html>\n')
+
 if __name__ == "__main__":
     all_items = fetch_hacker_news_items()
     extracted_data = extract_fields(all_items)
     
-    # Output the extracted data as a list of dictionaries
-    for item in extracted_data:
-        print(item)
+    output_file = "hacker_news_items.html"
+
+    write_data_to_html(extracted_data, output_file)
+    print(f"Data written to {output_file}")
