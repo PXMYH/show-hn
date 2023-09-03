@@ -1,16 +1,21 @@
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hacker News Items</title>
 </head>
 <body>
 <h1>Hacker News Items</h1>
-<table border="1">
+<table border="1" id="hn-table">
+<thead>
 <tr>
 <th>Title</th>
-<th style="text-align:center;">Author</th>
-<th style="text-align:center;">Comments</th>
-<th style="text-align:center;">Created Date</th>
+<th style="text-align:center; cursor: pointer;" onclick="sortTable(1)">Author</th>
+<th style="text-align:center; cursor: pointer;" onclick="sortTable(2)">Comments</th>
+<th style="text-align:center; cursor: pointer;" onclick="sortTable(3)">Created Date</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td><a href="https://news.ycombinator.com/item?id=3742902">Show HN: This up votes itself</a></td>
 <td style="text-align:center;">olalonde</td>
@@ -6011,6 +6016,23 @@
 <td style="text-align:center;">42</td>
 <td style="text-align:center;">2018-10-15T13:04:23.000Z</td>
 </tr>
+</tbody>
 </table>
+<script>
+function sortTable(columnIndex) {
+    const table = document.querySelector("#hn-table");
+    const tbody = table.querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+
+    rows.sort((a, b) => {
+        const aValue = a.children[columnIndex].textContent;
+        const bValue = b.children[columnIndex].textContent;
+        return aValue.localeCompare(bValue);
+    });
+
+    tbody.innerHTML = "";
+    rows.forEach(row => tbody.appendChild(row));
+}
+</script>
 </body>
 </html>
