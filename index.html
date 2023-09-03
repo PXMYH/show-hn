@@ -6025,9 +6025,9 @@ function sortTable(columnIndex) {
     const rows = Array.from(tbody.querySelectorAll("tr"));
 
     rows.sort((a, b) => {
-        const aValue = a.children[columnIndex].textContent;
-        const bValue = b.children[columnIndex].textContent;
-        return aValue.localeCompare(bValue);
+        const aValue = parseInt(a.children[columnIndex].textContent);
+        const bValue = parseInt(b.children[columnIndex].textContent);
+        return aValue - bValue;
     });
 
     tbody.innerHTML = "";
