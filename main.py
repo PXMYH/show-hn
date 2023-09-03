@@ -57,17 +57,29 @@ def write_data_to_html(data, output_file):
         file.write('</head>\n')
         file.write('<body>\n')
         file.write('<h1>Hacker News Items</h1>\n')
-        file.write('<ul>\n')
+        file.write('<table border="1">\n')  # Create a table with borders
 
+        # Create table header row with centered text
+        file.write('<tr>\n')
+        file.write('<th>Title</th>\n')  # Title column is not centered
+        file.write('<th style="text-align:center;">Author</th>\n')
+        file.write('<th style="text-align:center;">Comments</th>\n')
+        file.write('<th style="text-align:center;">Created Date</th>\n')
+        file.write('</tr>\n')
+
+        # Create table rows with centered text
         for item in data:
-            file.write('<li>\n')
-            file.write(f'<strong>Author:</strong> {item["author"]}<br>\n')
-            file.write(f'<strong>Created Date:</strong> {item["created_at"]}<br>\n')
-            file.write(f'<strong>Comments:</strong> {item["num_comments"]}<br>\n')
-            file.write(f'<a href="{item["hn_url"]}">{item["title"]}</a>\n')
-            file.write('</li>\n')
+        file.write('<tr>\n')
+        file.write(
+            f'<td style="text-align:center;"><a href="{item["hn_url"]}">{item["title"]}</a></td>\n'
+        )
+        file.write(f'<td style="text-align:center;">{item["author"]}</td>\n')
+        file.write(
+            f'<td style="text-align:center;">{item["num_comments"]}</td>\n')
+        file.write(f'<td style="text-align:center;">{item["created_at"]}</td>\n')
+        file.write('</tr>\n')
 
-        file.write('</ul>\n')
+        file.write('</table>\n')
         file.write('</body>\n')
         file.write('</html>\n')
 
