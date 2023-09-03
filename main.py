@@ -74,7 +74,7 @@ def write_data_to_html(data, output_file):
         for item in data:
             file.write("<tr>\n")
             file.write(
-                f'<td style="text-align:center;"><a href="{item["hn_url"]}">{item["title"]}</a></td>\n'
+                f'<td><a href="{item["hn_url"]}">{item["title"]}</a></td>\n'
             )
             file.write(f'<td style="text-align:center;">{item["author"]}</td>\n')
             file.write(f'<td style="text-align:center;">{item["num_comments"]}</td>\n')
