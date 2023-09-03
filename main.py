@@ -85,6 +85,8 @@ def write_data_to_html(data, output_file):
 
         file.write('</tbody>\n')
         file.write('</table>\n')
+
+        # JavaScript code for sorting
         file.write('<script>\n')
         file.write('function sortTable(columnIndex) {\n')
         file.write('    const table = document.querySelector("#hn-table");\n')
@@ -92,15 +94,16 @@ def write_data_to_html(data, output_file):
         file.write('    const rows = Array.from(tbody.querySelectorAll("tr"));\n')
         file.write('\n')
         file.write('    rows.sort((a, b) => {\n')
-        file.write('        const aValue = a.children[columnIndex].textContent;\n')
-        file.write('        const bValue = b.children[columnIndex].textContent;\n')
-        file.write('        return aValue.localeCompare(bValue);\n')
+        file.write('        const aValue = parseInt(a.children[columnIndex].textContent);\n')
+        file.write('        const bValue = parseInt(b.children[columnIndex].textContent);\n')
+        file.write('        return aValue - bValue;\n')
         file.write('    });\n')
         file.write('\n')
         file.write('    tbody.innerHTML = "";\n')
         file.write('    rows.forEach(row => tbody.appendChild(row));\n')
         file.write('}\n')
         file.write('</script>\n')
+
         file.write('</body>\n')
         file.write('</html>\n')
 
