@@ -53,38 +53,56 @@ def extract_fields(items):
 
 
 def write_data_to_html(data, output_file):
-    with open(output_file, "w") as file:
-        file.write("<html>\n")
-        file.write("<head>\n")
-        file.write("<title>Hacker News Items</title>\n")
-        file.write("</head>\n")
-        file.write("<body>\n")
-        file.write("<h1>Hacker News Items</h1>\n")
-        file.write('<table border="1">\n')  # Create a table with borders
+    with open(output_file, 'w') as file:
+        file.write('<html>\n')
+        file.write('<head>\n')
+        file.write('<meta charset="UTF-8">\n')
+        file.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">\n')
+        file.write('<title>Hacker News Items</title>\n')
+        file.write('</head>\n')
+        file.write('<body>\n')
+        file.write('<h1>Hacker News Items</h1>\n')
+        file.write('<table border="1" id="hn-table">\n')  # Create a table with borders
+        file.write('<thead>\n')
+        file.write('<tr>\n')
+        file.write('<th>Title</th>\n')
+        file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(1)">Author</th>\n')
+        file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(2)">Comments</th>\n')
+        file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(3)">Created Date</th>\n')
+        file.write('</tr>\n')
+        file.write('</thead>\n')
+        file.write('<tbody>\n')
 
-        # Create table header row with centered text
-        file.write("<tr>\n")
-        file.write("<th>Title</th>\n")  # Title column is not centered
-        file.write('<th style="text-align:center;">Author</th>\n')
-        file.write('<th style="text-align:center;">Comments</th>\n')
-        file.write('<th style="text-align:center;">Created Date</th>\n')
-        file.write("</tr>\n")
-
-        # Create table rows with centered text
+        # Create table rows with centered text for Author, Comments, and Created Date columns
         for item in data:
-            file.write("<tr>\n")
-            file.write(
-                f'<td><a href="{item["hn_url"]}">{item["title"]}</a></td>\n'
-            )
+            hn_url = f"https://news.ycombinator.com/item?id={item['objectID']}"
+            file.write('<tr>\n')
+            file.write(f'<td><a href="{hn_url}">{item["title"]}</a></td>\n')
             file.write(f'<td style="text-align:center;">{item["author"]}</td>\n')
             file.write(f'<td style="text-align:center;">{item["num_comments"]}</td>\n')
             file.write(f'<td style="text-align:center;">{item["created_at"]}</td>\n')
-            file.write("</tr>\n")
+            file.write('</tr>\n')
 
-        file.write("</table>\n")
-        file.write("</body>\n")
-        file.write("</html>\n")
-
+        file.write('</tbody>\n')
+        file.write('</table>\n')
+        file.write('<script>\n')
+        file.write('function sortTable(columnIndex) {\n')
+        file.write('    const table = document.querySelector("#hn-table");\n')
+        file.write('    const tbody = table.querySelector("tbody");\n')
+        file.write('    const rows = Array.from(tbody.querySelectorAll("tr"));\n')
+        file.write('\n')
+        file.write('    rows.sort((a, b) => {\n')
+        file.write('        const aValue = a.children[columnIndex].textContent;\n')
+        file.write('        const bValue = b.children[columnIndex].textContent;\n')
+        file.write('        return aValue.localeCompare(bValue);\n')
+        file.write('    });\n')
+        file.write('\n')
+        file.write('    tbody.innerHTML = "";\n')
+        file.write('    rows.forEach(row => tbody.appendChild(row));\n')
+        file.write('}\n')
+        file.write('</script>\n')
+        file.write('</body>\n')
+        file.write('</html>\n')
 
 if __name__ == "__main__":
     all_items = fetch_hacker_news_items()
