@@ -7037,13 +7037,13 @@ function sortTable(columnIndex) {
     sortOrders[columnIndex] = sortOrder;
 
     rows.sort((a, b) => {
-        const aValue = (columnIndex === 2) ? parseInt(a.children[columnIndex].textContent) : a.children[columnIndex].textContent;
-        const bValue = (columnIndex === 2) ? parseInt(b.children[columnIndex].textContent) : b.children[columnIndex].textContent;
+        const aValue = (columnIndex === 2 || columnIndex === 4) ? parseInt(a.children[columnIndex].textContent) : a.children[columnIndex].textContent;
+        const bValue = (columnIndex === 2 || columnIndex === 4) ? parseInt(b.children[columnIndex].textContent) : b.children[columnIndex].textContent;
 
         if (sortOrder === "asc") {
-            return (columnIndex === 2) ? aValue - bValue : aValue.localeCompare(bValue);
+            return (columnIndex === 2 || columnIndex === 4) ? aValue - bValue : aValue.localeCompare(bValue);
         } else {
-            return (columnIndex === 2) ? bValue - aValue : bValue.localeCompare(aValue);
+            return (columnIndex === 2 || columnIndex === 4) ? bValue - aValue : bValue.localeCompare(aValue);
         }
     });
 
