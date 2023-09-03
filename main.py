@@ -46,6 +46,7 @@ def extract_fields(items):
             "objectID": item.get("objectID", ""),
             "author": item.get("author", ""),
             "hn_url": hn_url,
+            "points": item.get("points", ""),
         }
         extracted_data.append(extracted_item)
 
@@ -69,6 +70,7 @@ def write_data_to_html(data, output_file):
         file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(1)">Author</th>\n')
         file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(2)">Comments</th>\n')
         file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(3)">Created Date</th>\n')
+        file.write('<th style="text-align:center; cursor: pointer;" onclick="sortTable(4)">Points</th>\n')
         file.write('</tr>\n')
         file.write('</thead>\n')
         file.write('<tbody>\n')
@@ -81,6 +83,7 @@ def write_data_to_html(data, output_file):
             file.write(f'<td style="text-align:center;">{item["author"]}</td>\n')
             file.write(f'<td style="text-align:center;">{item["num_comments"]}</td>\n')
             file.write(f'<td style="text-align:center;">{item["created_at"]}</td>\n')
+            file.write(f'<td style="text-align:center;">{item["points"]}</td>\n')
             file.write('</tr>\n')
 
         file.write('</tbody>\n')
