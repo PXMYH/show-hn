@@ -6019,15 +6019,31 @@
 </tbody>
 </table>
 <script>
+const sortOrders = [null, "asc", "asc", "asc"];
 function sortTable(columnIndex) {
     const table = document.querySelector("#hn-table");
     const tbody = table.querySelector("tbody");
     const rows = Array.from(tbody.querySelectorAll("tr"));
 
+    let sortOrder = sortOrders[columnIndex];
+
+    if (sortOrder === "asc") {
+        sortOrder = "desc";
+    } else {
+        sortOrder = "asc";
+    }
+
+    sortOrders[columnIndex] = sortOrder;
+
     rows.sort((a, b) => {
-        const aValue = parseInt(a.children[columnIndex].textContent);
-        const bValue = parseInt(b.children[columnIndex].textContent);
-        return aValue - bValue;
+        const aValue = a.children[columnIndex].textContent;
+        const bValue = b.children[columnIndex].textContent;
+
+        if (sortOrder === "asc") {
+            return aValue.localeCompare(bValue);
+        } else {
+            return bValue.localeCompare(aValue);
+        }
     });
 
     tbody.innerHTML = "";
