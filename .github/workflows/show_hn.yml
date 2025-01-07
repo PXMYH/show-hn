@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
+      - name: Lock dependencies
+        run: poetry lock
+
       - name: Run Python script
         run: |
           poetry run python main.py
