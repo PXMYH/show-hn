@@ -25,10 +25,9 @@ jobs:
         shell: bash
 
       - name: Install dependencies
-        run: poetry install
-
-      - name: Lock dependencies
-        run: poetry lock
+        run: |
+          poetry lock
+          poetry install
 
       - name: Run Python script
         run: |
